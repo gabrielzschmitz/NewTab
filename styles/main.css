@@ -1,0 +1,693 @@
+/* Add font-face declaration at the top of the file */
+@font-face {
+  font-family: "SF Pro";
+  src: url("../fonts/SF-Pro.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  /* Light mode variables */
+  --background-color: #ffffff;
+  --card-color: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --text-bright: #000000;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 24px;
+  --font-primary: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "SF Pro", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Monaco, Consolas, monospace;
+}
+
+/* Dark mode */
+.dark-mode {
+  --background-color: #1a1b1e;
+  --card-color: #1e1e1e;
+  --text-color: #a0a4a8;
+  --text-secondary: #a0a0a0;
+  --text-bright: #e0e4e8;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2rem;
+}
+
+.hero-background {
+  width: 100%;
+  height: 60vh;
+  background-image: url("public/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+}
+
+.info-container {
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 0 0.5rem;
+}
+
+.time {
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--text-bright);
+  line-height: 1;
+}
+
+.time-suffix {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  margin-left: 0.25rem;
+}
+
+.date-weather {
+  display: flex;
+  gap: 2rem;
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.bookmarks-container {
+  padding: 1rem 1rem;
+}
+
+.bookmarks-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem 2rem;
+}
+
+.bookmark {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: color 0.2s;
+}
+
+.bookmark:hover {
+  color: var(--text-bright);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.edit-mode-container {
+  background-color: rgba(0, 0, 0, 0);
+  bottom: 1rem;
+  left: 1rem;
+  position: fixed;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.add-btn,
+.edit-btn {
+  flex-direction: column;
+  opacity: 0.5;
+  font-size: 1.25rem;
+  transition: opacity 0.2s;
+  color: var(--text-color);
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.add-btn:hover,
+.edit-btn:hover {
+  opacity: 1;
+}
+
+.add-btn.hidden {
+  display: none;
+}
+
+.delete-bookmark-btn {
+  background-color: rgba(0, 0, 0, 0);
+  color: var(--text-color);
+  border: none;
+  border-radius: 4px;
+  font-size: 1.25rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s, transform 0.1s;
+  position: absolute;
+  z-index: 5;
+}
+
+.delete-bookmark-btn:hover {
+  opacity: 1;
+}
+
+.popup-form {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-form form {
+  background-color: var(--background-color);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-form input {
+  padding: 0.5rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--text-bright);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.popup-form input:hover {
+  padding: 0.5rem;
+  border: 1px solid var(--text-bright);
+}
+
+.popup-form input:focus {
+  border-color: var(--text-bright);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* subtle glow */
+  outline: none; /* important to override default */
+}
+
+#save-button,
+#reset-button,
+.popup-form button {
+  padding: 1rem;
+  margin-top: 0.75rem;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#save-button:hover,
+#reset-button:hover,
+.popup-form button:hover {
+  background-color: var(--text-bright);
+}
+
+.popup-form.hidden {
+  display: none;
+}
+
+.settings-link {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0.5;
+  font-size: 1.25rem;
+  transition: opacity 0.2s;
+}
+
+.settings-link:hover {
+  opacity: 1;
+}
+
+.settings-link a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: var(--background-color);
+  margin: 10% auto;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 500px;
+  color: var(--text-bright);
+}
+
+.close {
+  color: var(--text-color);
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--text-bright);
+}
+
+.btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-bright);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Update the settings popup styles for a more beautiful appearance */
+
+/* Settings popup styles */
+#settings-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+
+#settings-popup.hidden {
+  display: none !important;
+}
+
+.settings-popup-content {
+  background-color: var(--card-color);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  width: 90%;
+  max-width: 650px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settings-popup-content h1 {
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: var(--text-bright);
+}
+
+.settings-popup-content h2 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+  color: var(--text-bright);
+}
+
+.settings-section {
+  background-color: var(--background-color);
+  border-radius: 16px;
+  padding: 1.8rem;
+  margin-bottom: 1.8rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.settings-section:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--text-bright);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"] {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--text-bright);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="url"]:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.radio-group {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.radio-group label {
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+
+/* Custom radio buttons */
+.radio-group input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.radio-group input[type="radio"]:checked {
+  border-color: var(--text-bright);
+}
+
+.radio-group input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: var(--text-bright);
+  border-radius: 50%;
+}
+
+/* Custom checkbox */
+.form-group input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  margin-right: 0.5rem;
+}
+
+.form-group input[type="checkbox"]:checked {
+  border-color: var(--text-bright);
+  background-color: var(--text-bright);
+}
+
+.form-group input[type="checkbox"]:checked::before {
+  content: "✓";
+  position: absolute;
+  color: var(--background-color);
+  font-size: 0.8rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.location-inputs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.location-inputs > div {
+  flex: 1;
+}
+
+.location-inputs label {
+  font-weight: normal;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-color);
+}
+
+.help-text {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.help-text a {
+  color: var(--text-bright);
+  text-decoration: none;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.help-text a:hover {
+  opacity: 0.8;
+}
+
+.help-text a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--text-bright);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.help-text a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+#save-button,
+#reset-button,
+.btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+#save-button,
+.btn-primary {
+  background-color: var(--text-bright);
+  color: var(--background-color);
+}
+
+#save-button:hover,
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#reset-button,
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-bright);
+}
+
+#reset-button:hover,
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+#reset-bookmarks-button {
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-color);
+  padding: 0.7rem 1.2rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+#reset-bookmarks-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-bright);
+}
+
+.close-settings {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.close-settings:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-bright);
+  transform: rotate(90deg);
+}
+
+/* Add styles for the file input container */
+.file-input-container {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+#select-image-button {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-color);
+  padding: 0.7rem 1.2rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  margin-right: 1rem;
+}
+
+#select-image-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-bright);
+}
+
+@media (max-width: 768px) {
+  .settings-popup-content {
+    padding: 1.5rem;
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .settings-section {
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .location-inputs {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  #save-button,
+  #reset-button,
+  .btn {
+    width: 100%;
+  }
+
+  .settings-popup-content h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+}
+
