@@ -1,6 +1,7 @@
 <h1 align="center">
     <br>
-    <img src="./public/demo.png" alt="Demo Image"/>
+    <img width="48%" src="./public/demo.png" alt="Demo Image"/>
+    <img width="48%" src="./public/demo-light.png" alt="Demo Image"/>
     <br>
     <img src="./icons/icon-32.png" alt="Extension Icon"/>
     NewTab Extension
@@ -51,6 +52,11 @@ alt="Give me a Star">
 2. Click **"Load Temporary Add-on"**.
 3. Select the `manifest.json` file from this repository.
 
+Or
+
+1. Go to the [extension page](https://addons.mozilla.org/pt-BR/firefox/addon/new-tab-by-gabrielzschmitz).
+2. And add the extension to your firefox!
+
 ---
 
 ## 💡 How to Use
@@ -67,10 +73,10 @@ alt="Give me a Star">
 
 ## 🔗 Compatibility
 
-| Browser     | Status                              |
-|-------------|-------------------------------------|
-| Chrome      | ✅ Supported (need to add to store) |
-| Firefox     | ✅ Supported (need to add to store) |
+| Browser | Status                              |
+|---------|-------------------------------------|
+| Chrome  | ✅ Supported (need to add to store) |
+| Firefox | ✅ Supported                        |
 
 ---
 
