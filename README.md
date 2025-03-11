@@ -44,6 +44,11 @@ alt="Give me a Star">
 3. Click **"Load unpacked"**.
 4. Select this repository folder (where `manifest.json` is located).
 
+Or
+
+1. Go to the [extension page](https://chromewebstore.google.com/detail/nighhjpfiampencdhknmonmgcmfegghj?utm_source=item-share-cb).
+2. And add the extension to your chrome!
+
 ---
 
 ### 🦊 Firefox
@@ -73,10 +78,10 @@ Or
 
 ## 🔗 Compatibility
 
-| Browser | Status                              |
-|---------|-------------------------------------|
-| Chrome  | ✅ Supported (need to add to store) |
-| Firefox | ✅ Supported                        |
+| Browser | Status       |
+|---------|--------------|
+| Chrome  | ✅ Supported |
+| Firefox | ✅ Supported |
 
 ---
 
