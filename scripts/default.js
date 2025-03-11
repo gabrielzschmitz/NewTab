@@ -17,3 +17,47 @@ export const defaultBookmarks = [
   { name: "chatgpt", url: "https://chat.openai.com" },
 ]
 
+// Default settings
+export const defaultSettings = {
+  darkMode: false,
+  customHero: "",
+  timeFormat: "24h",
+  temperatureUnit: "celsius",
+  weatherLocation: {
+    latitude: 40.7128,
+    longitude: -74.006,
+  },
+  heroImage: "public/hero.jpg",
+}
+
+// Weather codes mapping
+export const weatherCodes = {
+  0: "clear",
+  1: "clear",
+  2: "partly cloudy",
+  3: "cloudy",
+  45: "foggy",
+  48: "foggy",
+  51: "drizzle",
+  53: "drizzle",
+  55: "drizzle",
+  56: "drizzle",
+  57: "drizzle",
+  61: "rain",
+  63: "rain",
+  65: "rain",
+  66: "rain",
+  67: "rain",
+  71: "snow",
+  73: "snow",
+  75: "snow",
+  77: "snow",
+  80: "showers",
+  81: "showers",
+  82: "showers",
+  85: "snow",
+  86: "snow",
+  95: "storm",
+  96: "storm",
+  99: "storm",
+}
