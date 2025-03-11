@@ -67,11 +67,11 @@ Or
 ## 💡 How to Use
 
 ### 🔖 Customizing Bookmarks
-- Enable **Edit Mode** (bottom-right button).
+- Enable **Edit Mode** (bottom-left button).
 - Add, edit, or remove bookmarks directly.
 
 ### 🎭 Changing Appearance
-- Open **Settings** (bottom-left link).
+- Open **Settings** (bottom-right link).
 - Customize dark mode, hero image, and other preferences.
 
 ---
