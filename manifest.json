@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "New Tab",
   "version": "1.0",
-  "description": "A simple and customizable new tab page that combines the essentials — time, date, weather, and quick-access bookmarks — all with flexible appearance options.",
+  "description": "Simple, yet customizable new tab with time, date, weather, and bookmarks — all with flexible appearance options.",
   "permissions": ["storage"],
   "chrome_url_overrides": {
     "newtab": "index.html"
