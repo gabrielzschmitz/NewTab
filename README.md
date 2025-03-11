@@ -4,7 +4,7 @@
     <img width="48%" src="./public/demo-light.png" alt="Demo Image"/>
     <br>
     <img src="./icons/icon-32.png" alt="Extension Icon"/>
-    NewTab Extension
+    New Tab
     <br>
 </h1>
 
