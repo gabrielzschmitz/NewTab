@@ -134,46 +134,28 @@ export async function saveSettings(event) {
   try {
     // Save settings to storage
     await browser.storage.sync.set(settings)
-    showSaveMessage("Settings saved successfully!")
+    showSaveMessage("Settings saved successfully! Reloading page...")
     
-    // Update the hero background
-    if (localImageData.heroImageData) {
-      heroBackground.style.backgroundImage = `url(${localImageData.heroImageData})`;
-    } else if (customHero) {
-      heroBackground.style.backgroundImage = `url(${customHero})`;
-    } else {
-      heroBackground.style.backgroundImage = `url(public/hero.jpg)`;
-    }
+    // Close the popup
+    settingsPopup.classList.add("hidden")
     
-    if (settings.darkMode) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-    
-    settingsPopup.classList.add("hidden"); // Close the popup after saving
+    // Reload the page after a short delay to show the message
+    setTimeout(() => {
+      window.location.reload()
+    }, 1500)
   } catch (error) {
     console.error("Error saving settings:", error)
     // Fallback for local testing
     localStorage.setItem("settings", JSON.stringify(settings))
-    showSaveMessage("Settings saved successfully! (local storage)")
+    showSaveMessage("Settings saved successfully! Reloading page...")
     
-    // Update the hero background
-    if (localImageData.heroImageData) {
-      heroBackground.style.backgroundImage = `url(${localImageData.heroImageData})`;
-    } else if (customHero) {
-      heroBackground.style.backgroundImage = `url(${customHero})`;
-    } else {
-      heroBackground.style.backgroundImage = `url(public/hero.jpg)`;
-    }
+    // Close the popup
+    settingsPopup.classList.add("hidden")
     
-    if (settings.darkMode) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-    
-    settingsPopup.classList.add("hidden"); // Close the popup after saving
+    // Reload the page after a short delay to show the message
+    setTimeout(() => {
+      window.location.reload()
+    }, 1500)
   }
 }
 
