@@ -4,6 +4,10 @@ import { getEditMode, showSaveMessage, hideAddBookmarkForm } from "./ui.js"
 
 // Add delete buttons to bookmarks
 export function addDeleteButtonsToBookmarks() {
+  // First, remove any existing delete buttons to avoid duplicates
+  document.querySelectorAll(".delete-bookmark-btn").forEach((btn) => btn.remove())
+  
+  // Then add fresh delete buttons to all bookmarks
   const bookmarkElements = document.querySelectorAll(".bookmark")
 
   bookmarkElements.forEach((bookmark) => {
@@ -12,6 +16,7 @@ export function addDeleteButtonsToBookmarks() {
     deleteButton.textContent = "-"
     deleteButton.addEventListener("click", (event) => {
       event.preventDefault()
+      event.stopPropagation()
       removeBookmark(bookmark)
     })
     bookmark.appendChild(deleteButton)
