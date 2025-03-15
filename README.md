@@ -24,6 +24,11 @@ alt="Give me a Star">
 </a>
 </p>
 
+<p align="center">
+<img src="https://img.shields.io/chrome-web-store/v/nighhjpfiampencdhknmonmgcmfegghj" alt="Chrome Web Store Version">
+<img src="https://img.shields.io/amo/v/new-tab-by-gabrielzschmitz" alt="Mozilla Add-on Version">
+</p>
+
 ## ✨ Features
 
 ✅ Current Time & Date  
