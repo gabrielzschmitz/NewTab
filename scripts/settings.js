@@ -22,9 +22,13 @@ export async function loadSettings() {
     if (localImageData.heroImageData) {
       // If we have local image data, use that
       heroBackground.style.backgroundImage = `url(${localImageData.heroImageData})`;
+    } else if (settings.customHero) {
+      // If we have a custom URL, use that
+      heroBackground.style.backgroundImage = `url(${settings.customHero})`;
     } else {
-      // Otherwise use the hero image from settings
-      heroBackground.style.backgroundImage = `url(${settings.heroImage})`;
+      // Otherwise use the default hero image with the correct extension URL
+      const heroImageUrl = browser.runtime.getURL(settings.heroImage);
+      heroBackground.style.backgroundImage = `url(${heroImageUrl})`;
     }
     
     if (settings.darkMode) {
@@ -103,21 +107,9 @@ export async function saveSettings(event) {
   // Get custom hero image
   const customHero = customHeroInput.value.trim()
   
-  // Determine which hero image to use
+  // Determine which hero image to use for storage
   let heroImage = "public/hero.jpg";
   
-  // Check if we have a local image
-  const localImageData = await browser.storage.local.get("heroImageData")
-    .catch(() => ({ heroImageData: localStorage.getItem("heroImageData") }));
-  
-  if (localImageData.heroImageData) {
-    // If we have a local image, use that
-    heroImage = localImageData.heroImageData;
-  } else if (customHero) {
-    // Otherwise, if we have a custom URL, use that
-    heroImage = customHero;
-  }
-
   // Create settings object
   const settings = {
     darkMode: darkModeCheckbox.checked,
@@ -169,20 +161,26 @@ export async function resetSettings() {
       // Save default settings
       await browser.storage.sync.set(defaultSettings);
       
-      // Update the UI
-      heroBackground.style.backgroundImage = `url(public/hero.jpg)`;
-      loadSettings();
-      showSaveMessage("Settings reset to defaults!");
+      // Show message and reload
+      showSaveMessage("Settings reset to defaults! Reloading page...");
+      
+      // Reload the page after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     } catch (error) {
       console.error("Error resetting settings:", error);
       // Fallback for local testing
       localStorage.removeItem("heroImageData");
       localStorage.setItem("settings", JSON.stringify(defaultSettings));
       
-      // Update the UI
-      heroBackground.style.backgroundImage = `url(public/hero.jpg)`;
-      loadSettings();
-      showSaveMessage("Settings reset to defaults! (local storage)");
+      // Show message and reload
+      showSaveMessage("Settings reset to defaults! Reloading page...");
+      
+      // Reload the page after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     }
   }
 }
