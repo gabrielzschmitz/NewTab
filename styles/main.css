@@ -591,6 +591,7 @@ body {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+#reset-hero-image-button,
 #reset-bookmarks-button {
   margin-top: 1rem;
   background-color: rgba(255, 255, 255, 0.08);
@@ -601,6 +602,7 @@ body {
   transition: all 0.2s ease;
 }
 
+#reset-hero-image-button:hover,
 #reset-bookmarks-button:hover {
   background-color: rgba(255, 255, 255, 0.12);
   color: var(--text-bright);

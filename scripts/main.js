@@ -13,7 +13,8 @@ import {
   resetButton,
   resetBookmarksButton,
   selectImageButton,
-  customHeroFileInput
+  customHeroFileInput,
+  resetHeroImageButton
 } from "./dom-elements.js"
 import { 
   loadBookmarks, 
@@ -27,7 +28,8 @@ import {
   loadSettings, 
   applySettings, 
   saveSettings, 
-  resetSettings 
+  resetSettings,
+  initializeResetHeroImage
 } from "./settings.js"
 import { 
   getEditMode,
@@ -99,6 +101,7 @@ function setupEventListeners() {
 
   // Reset bookmarks to default settings
   resetBookmarksButton.addEventListener("click", resetBookmarks)
+  resetHeroImageButton.addEventListener("click", initializeResetHeroImage)
 
   // Handle local image selection
   selectImageButton.addEventListener("click", () => {

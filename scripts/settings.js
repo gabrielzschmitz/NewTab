@@ -6,7 +6,8 @@ import {
   timeFormatRadios, 
   latitudeInput, 
   longitudeInput, 
-  temperatureUnitRadios 
+  temperatureUnitRadios,
+  resetHeroImageButton
 } from "./dom-elements.js"
 import { showSaveMessage } from "./ui.js"
 
@@ -178,6 +179,43 @@ export async function resetSettings() {
       showSaveMessage("Settings reset to defaults! Reloading page...");
       
       // Reload the page after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    }
+  }
+}
+
+// Reset hero image to default image
+export async function initializeResetHeroImage() {
+  if (confirm("Are you sure you want to reset the hero image to default?")) {
+    try {
+      // Remove custom hero image data from local storage
+      await browser.storage.local.remove("heroImageData");
+
+      // Reset hero image and customHero in sync storage
+      await browser.storage.sync.set({
+        heroImage: defaultSettings.heroImage,
+        customHero: "", // Ensure customHero is cleared
+      });
+
+      // Show message and reload the page
+      showSaveMessage("Hero image reset to default! Reloading page...");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    } catch (error) {
+      console.error("Error resetting hero image:", error);
+
+      // Fallback for local testing
+      localStorage.removeItem("heroImageData");
+      localStorage.setItem("heroImage", defaultSettings.heroImage);
+      localStorage.setItem("customHero", "");
+
+      // Show message and reload
+      showSaveMessage("Hero image reset to default! Reloading page...");
+
       setTimeout(() => {
         window.location.reload();
       }, 1500);

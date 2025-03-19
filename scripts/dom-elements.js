@@ -31,6 +31,7 @@ let resetButton;
 let resetBookmarksButton;
 let selectImageButton;
 let customHeroFileInput;
+let resetHeroImageButton;
 
 // Initialize DOM elements
 export function initDomElements() {
@@ -64,6 +65,7 @@ export function initDomElements() {
   resetBookmarksButton = document.getElementById("reset-bookmarks-button")
   selectImageButton = document.getElementById("select-image-button")
   customHeroFileInput = document.getElementById("custom-hero-file")
+  resetHeroImageButton = document.getElementById("reset-hero-image-button");
 }
 
 // Export getters for DOM elements
@@ -94,5 +96,6 @@ export {
   resetButton,
   resetBookmarksButton,
   selectImageButton,
-  customHeroFileInput
+  customHeroFileInput,
+  resetHeroImageButton
 }

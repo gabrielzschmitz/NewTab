@@ -54,11 +54,11 @@ export function showSaveMessage(message) {
   messageElement.className = "save-message"
   messageElement.textContent = message
   messageElement.style.position = "fixed"
-  messageElement.style.bottom = "20px"
+  messageElement.style.top = "20px"
   messageElement.style.right = "20px"
   messageElement.style.padding = "10px 20px"
-  messageElement.style.backgroundColor = "var(--primary-color)"
-  messageElement.style.color = "white"
+  messageElement.style.backgroundColor = "var(--background-color)"
+  messageElement.style.color = "var(--text-color)"
   messageElement.style.borderRadius = "var(--border-radius)"
   messageElement.style.boxShadow = "var(--shadow)"
   messageElement.style.zIndex = "1000"
@@ -67,7 +67,7 @@ export function showSaveMessage(message) {
 
   setTimeout(() => {
     messageElement.style.opacity = "0"
-    messageElement.style.transition = "opacity 0.5s"
+    messageElement.style.transition = "opacity 0.1s"
 
     setTimeout(() => {
       document.body.removeChild(messageElement)
