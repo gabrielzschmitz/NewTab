@@ -1,6 +1,6 @@
 // Polyfill for browser API when running in a standard browser environment
 if (typeof browser === "undefined") {
-  var browser = chrome || browser
+  globalThis.browser = chrome;
 }
 
 // DOM Elements
